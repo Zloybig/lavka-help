@@ -25,7 +25,7 @@ if enable_autoupdate then
         if autoupdate_loaded then
             Update.json_url = "https://raw.githubusercontent.com/Zloybig/lavka-help/main/Update.jason" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
-            Update.url = "https://github.com/qrlk/moonloader-script-updater/"
+            Update.url = "https://github.com/Zloybig/lavka-help.git"
         end
     end
 end
@@ -43,6 +43,9 @@ colors[clr.TitleBgActive]          = ImVec4(255, 0, 0, 1)
 colors[clr.TitleBgCollapsed]       = ImVec4(255, 0, 0, 0.1)
 main = function()
 while not isSampAvailable() do wait(0) end
+if autoupdate_loaded and enable_autoupdate and Update then
+	pcall(Update.check, Update.json_url, Update.prefix, Update.url)
+end
 sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 	while true do wait(0)
 		imgui.Process = active.v
