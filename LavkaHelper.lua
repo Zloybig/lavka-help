@@ -1,5 +1,5 @@
 script_name("LavkaHelper")
-script_version("2.2")
+script_version("2.3")
 local imgui = require("imgui")
 local active = imgui.ImBool(false)
 local samp = require 'lib.samp.events'
@@ -17,7 +17,7 @@ local font = renderCreateFont('Arial', 10, f.BOLD + f.SHADOW)
 --local hexcolor = 0x00ff00ff
 local encoding = require ("encoding")
 encoding.default = "UTF8"
-u8 = encoding.UTF8
+u8 = encoding.cp1251
 local style = imgui.GetStyle()
 local colors = style.Colors
 local clr = imgui.Col
