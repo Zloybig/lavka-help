@@ -39,7 +39,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 					if sampIs3dTextDefined(IDTEXT) then
 						local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(IDTEXT)
 						local ll = getDistanceBetweenCoords3d(posX, posY, posZ, x2, y2, z2)
-						if text == 'Управления товарами.' and not isCentralMarket(posX, posY) then
+						if text == 'Р Р€Р С—РЎР‚Р В°Р Р†Р В»Р ВµР Р…Р С‘РЎРЏ РЎвЂљР С•Р Р†Р В°РЎР‚Р В°Р С�Р С‘.' and not isCentralMarket(posX, posY) then
 							if ll<=5.0 then
 								drawCircleIn3d(posX,posY,posZ-1.3,5,36,1.5,0xFF0000FF)
 							elseif ll>5.0 then
@@ -73,7 +73,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 			end
 			if checkbox444.v then
 				function samp.onServerMessage(color, text)
-					if text:find('Вы сняли лавку!') and not isCentralMarket(x2 , y2) or text:find('^%s*%(%( Через 30 секунд вы сможете сразу отправиться в больницу или подождать врачей %)%)%s*$') and not isCentralMarket(x2 , y2) then
+					if text:find('Р вЂ™РЎвЂ№ РЎРѓР Р…РЎРЏР В»Р С‘ Р В»Р В°Р Р†Р С”РЎС“!') and not isCentralMarket(x2 , y2) or text:find('^%s*%(%( Р В§Р ВµРЎР‚Р ВµР В· 30 РЎРѓР ВµР С”РЎС“Р Р…Р Т‘ Р Р†РЎвЂ№ РЎРѓР С�Р С•Р В¶Р ВµРЎвЂљР Вµ РЎРѓРЎР‚Р В°Р В·РЎС“ Р С•РЎвЂљР С—РЎР‚Р В°Р Р†Р С‘РЎвЂљРЎРЉРЎРѓРЎРЏ Р Р† Р В±Р С•Р В»РЎРЉР Р…Р С‘РЎвЂ РЎС“ Р С‘Р В»Р С‘ Р С—Р С•Р Т‘Р С•Р В¶Р Т‘Р В°РЎвЂљРЎРЉ Р Р†РЎР‚Р В°РЎвЂЎР ВµР в„– %)%)%s*$') and not isCentralMarket(x2 , y2) then
 						checkbox.v = true
 						checkbox222.v = true
 					end
@@ -87,7 +87,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 							if isPointOnScreen(posX, posY, posZ, nil) then
 								local pX, pY = convert3DCoordsToScreen(getCharCoordinates(PLAYER_PED))
 								local lX, lY = convert3DCoordsToScreen(posX, posY, posZ)
-								renderFontDrawText(font, 'Свободна', lX - 30, lY - 20, 0xFF16C910, 0x90000000)
+								renderFontDrawText(font, 'Р РЋР Р†Р С•Р В±Р С•Р Т‘Р Р…Р В°', lX - 30, lY - 20, 0xFF16C910, 0x90000000)
 								renderDrawLine(pX, pY, lX, lY, 1, 0xFF52FF4D)
 								renderDrawPolygon(pX, pY, 10, 10, 10, 0, 0xFFFFFFFF)
 								renderDrawPolygon(lX, lY, 10, 10, 10, 0, 0xFFFFFFFF)
@@ -98,8 +98,8 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 			end
 			if roff.v then
 				function samp.onServerMessage(color, text)
-					if text:find('%[Подсказка%] {FFFFFF}Вы успешно арендовали лавку для продажи/покупки товара!') then
-						sampAddChatMessage('{FFFF00}[Lavka helper] {FFFFFF}Вы словили лавку, рендер был выключен', -1)
+					if text:find('%[Р СџР С•Р Т‘РЎРѓР С”Р В°Р В·Р С”Р В°%] {FFFFFF}Р вЂ™РЎвЂ№ РЎС“РЎРѓР С—Р ВµРЎв‚¬Р Р…Р С• Р В°РЎР‚Р ВµР Р…Р Т‘Р С•Р Р†Р В°Р В»Р С‘ Р В»Р В°Р Р†Р С”РЎС“ Р Т‘Р В»РЎРЏ Р С—РЎР‚Р С•Р Т‘Р В°Р В¶Р С‘/Р С—Р С•Р С”РЎС“Р С—Р С”Р С‘ РЎвЂљР С•Р Р†Р В°РЎР‚Р В°!') then
+						sampAddChatMessage('{FFFF00}[Lavka helper] {FFFFFF}Р вЂ™РЎвЂ№ РЎРѓР В»Р С•Р Р†Р С‘Р В»Р С‘ Р В»Р В°Р Р†Р С”РЎС“, РЎР‚Р ВµР Р…Р Т‘Р ВµРЎР‚ Р В±РЎвЂ№Р В» Р Р†РЎвЂ№Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…', -1)
 						rend.v= false
 					end
 				end
@@ -126,21 +126,21 @@ function autoupdate(json_url, prefix, url)
 				lua_thread.create(function(prefix)
 				  local dlstatus = require('moonloader').download_status
 				  local color = -1
-				  sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+				  sampAddChatMessage((prefix..'Р С›Р В±Р Р…Р В°РЎР‚РЎС“Р В¶Р ВµР Р…Р С• Р С•Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ. Р СџРЎвЂ№РЎвЂљР В°РЎР‹РЎРѓРЎРЉ Р С•Р В±Р Р…Р С•Р Р†Р С‘РЎвЂљРЎРЉРЎРѓРЎРЏ c '..thisScript().version..' Р Р…Р В° '..updateversion), color)
 				  wait(250)
 				  downloadUrlToFile(updatelink, thisScript().path,
 					function(id3, status1, p13, p23)
 					  if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
-						print(string.format('Загружено %d из %d.', p13, p23))
+						print(string.format('Р вЂ”Р В°Р С–РЎР‚РЎС“Р В¶Р ВµР Р…Р С• %d Р С‘Р В· %d.', p13, p23))
 					  elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-						print('Загрузка обновления завершена.')
-						sampAddChatMessage((prefix..'Обновление завершено!'), color)
+						print('Р вЂ”Р В°Р С–РЎР‚РЎС“Р В·Р С”Р В° Р С•Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘РЎРЏ Р В·Р В°Р Р†Р ВµРЎР‚РЎв‚¬Р ВµР Р…Р В°.')
+						sampAddChatMessage((prefix..'Р С›Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ Р В·Р В°Р Р†Р ВµРЎР‚РЎв‚¬Р ВµР Р…Р С•!'), color)
 						goupdatestatus = true
 						lua_thread.create(function() wait(500) thisScript():reload() end)
 					  end
 					  if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
 						if goupdatestatus == nil then
-						  sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+						  sampAddChatMessage((prefix..'Р С›Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ Р С—РЎР‚Р С•РЎв‚¬Р В»Р С• Р Р…Р ВµРЎС“Р Т‘Р В°РЎвЂЎР Р…Р С•. Р вЂ”Р В°Р С—РЎС“РЎРѓР С”Р В°РЎР‹ РЎС“РЎРѓРЎвЂљР В°РЎР‚Р ВµР Р†РЎв‚¬РЎС“РЎР‹ Р Р†Р ВµРЎР‚РЎРѓР С‘РЎР‹..'), color)
 						  update = false
 						end
 					  end
@@ -150,11 +150,11 @@ function autoupdate(json_url, prefix, url)
 				)
 			  else
 				update = false
-				print('v'..thisScript().version..': Обновление не требуется.')
+				print('v'..thisScript().version..': Р С›Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ Р Р…Р Вµ РЎвЂљРЎР‚Р ВµР В±РЎС“Р ВµРЎвЂљРЎРѓРЎРЏ.')
 			  end
 			end
 		  else
-			print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
+			print('v'..thisScript().version..': Р СњР Вµ Р С�Р С•Р С–РЎС“ Р С—РЎР‚Р С•Р Р†Р ВµРЎР‚Р С‘РЎвЂљРЎРЉ Р С•Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ. Р РЋР С�Р С‘РЎР‚Р С‘РЎвЂљР ВµРЎРѓРЎРЉ Р С‘Р В»Р С‘ Р С—РЎР‚Р С•Р Р†Р ВµРЎР‚РЎРЉРЎвЂљР Вµ РЎРѓР В°Р С�Р С•РЎРѓРЎвЂљР С•РЎРЏРЎвЂљР ВµР В»РЎРЉР Р…Р С• Р Р…Р В° '..url)
 			update = false
 		  end
 		end
@@ -188,20 +188,20 @@ function imgui.OnDrawFrame()
 	imgui.SetNextWindowPos(imgui.ImVec2(x2 / 2, y2 / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 	imgui.SetNextWindowSize(imgui.ImVec2(500, 400), imgui.Cond.FirstUseEver)
 	imgui.Begin("Lavka helper", active ,imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysUseWindowPadding + imgui.WindowFlags.NoResize)
-	imgui.Text(u8"Для центрального рынка")
+	imgui.Text(u8"Р вЂќР В»РЎРЏ РЎвЂ Р ВµР Р…РЎвЂљРЎР‚Р В°Р В»РЎРЉР Р…Р С•Р С–Р С• РЎР‚РЎвЂ№Р Р…Р С”Р В°")
 	imgui.Spacing()
-	imgui.Checkbox(u8"Рендер лавок цр", rend)
-	imgui.Checkbox(u8"Авто-отключения рендера при аренде лавки",roff)
+	imgui.Checkbox(u8"Р В Р ВµР Р…Р Т‘Р ВµРЎР‚ Р В»Р В°Р Р†Р С•Р С” РЎвЂ РЎР‚", rend)
+	imgui.Checkbox(u8"Р С’Р Р†РЎвЂљР С•-Р С•РЎвЂљР С”Р В»РЎР‹РЎвЂЎР ВµР Р…Р С‘РЎРЏ РЎР‚Р ВµР Р…Р Т‘Р ВµРЎР‚Р В° Р С—РЎР‚Р С‘ Р В°РЎР‚Р ВµР Р…Р Т‘Р Вµ Р В»Р В°Р Р†Р С”Р С‘",roff)
 	imgui.Separator()
 	imgui.Spacing()
-	imgui.Text(u8"Для переностных лавок")
-	imgui.Checkbox(u8("учитывать лавки"), checkbox)
-	imgui.Checkbox(u8("учитывать бизнесы (Работает, но ещё в процессе дороботки)"), checkbox222)
-	imgui.Checkbox(u8("Авто-отключение скрипта при использовании лавки"), checkbox333)
-	imgui.Checkbox(u8("Авто-включение скрипта при слёте лавки"), checkbox444)
+	imgui.Text(u8"Р вЂќР В»РЎРЏ Р С—Р ВµРЎР‚Р ВµР Р…Р С•РЎРѓРЎвЂљР Р…РЎвЂ№РЎвЂ¦ Р В»Р В°Р Р†Р С•Р С”")
+	imgui.Checkbox(u8("РЎС“РЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°РЎвЂљРЎРЉ Р В»Р В°Р Р†Р С”Р С‘"), checkbox)
+	imgui.Checkbox(u8("РЎС“РЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°РЎвЂљРЎРЉ Р В±Р С‘Р В·Р Р…Р ВµРЎРѓРЎвЂ№ (Р В Р В°Р В±Р С•РЎвЂљР В°Р ВµРЎвЂљ, Р Р…Р С• Р ВµРЎвЂ°РЎвЂ� Р Р† Р С—РЎР‚Р С•РЎвЂ Р ВµРЎРѓРЎРѓР Вµ Р Т‘Р С•РЎР‚Р С•Р В±Р С•РЎвЂљР С”Р С‘)"), checkbox222)
+	imgui.Checkbox(u8("Р С’Р Р†РЎвЂљР С•-Р С•РЎвЂљР С”Р В»РЎР‹РЎвЂЎР ВµР Р…Р С‘Р Вµ РЎРѓР С”РЎР‚Р С‘Р С—РЎвЂљР В° Р С—РЎР‚Р С‘ Р С‘РЎРѓР С—Р С•Р В»РЎРЉР В·Р С•Р Р†Р В°Р Р…Р С‘Р С‘ Р В»Р В°Р Р†Р С”Р С‘"), checkbox333)
+	imgui.Checkbox(u8("Р С’Р Р†РЎвЂљР С•-Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…Р С‘Р Вµ РЎРѓР С”РЎР‚Р С‘Р С—РЎвЂљР В° Р С—РЎР‚Р С‘ РЎРѓР В»РЎвЂ�РЎвЂљР Вµ Р В»Р В°Р Р†Р С”Р С‘"), checkbox444)
 	imgui.SetCursorPos(imgui.ImVec2(460, 200))
-	imgui.Text(u8"Автор: Samp_God_Game ЛОХ")
-	--imgui.ColorEdit4(u8"Цвет круга", rgb1)
-	--imgui.ColorEdit4(u8"Цвет круга при заходе в него", hexcolor)
+	imgui.Text(u8"Р С’Р Р†РЎвЂљР С•РЎР‚: Samp_God_Game Р вЂєР С›Р Тђ")
+	--imgui.ColorEdit4(u8"Р В¦Р Р†Р ВµРЎвЂљ Р С”РЎР‚РЎС“Р С–Р В°", rgb1)
+	--imgui.ColorEdit4(u8"Р В¦Р Р†Р ВµРЎвЂљ Р С”РЎР‚РЎС“Р С–Р В° Р С—РЎР‚Р С‘ Р В·Р В°РЎвЂ¦Р С•Р Т‘Р Вµ Р Р† Р Р…Р ВµР С–Р С•", hexcolor)
 	imgui.End()
   end
