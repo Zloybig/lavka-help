@@ -1,5 +1,5 @@
 script_name("LavkaHelper")
-script_version("2.3")
+script_version("2.4")
 local imgui = require("imgui")
 local active = imgui.ImBool(false)
 local samp = require 'lib.samp.events'
@@ -16,8 +16,8 @@ local font = renderCreateFont('Arial', 10, f.BOLD + f.SHADOW)
 --local rgb2 = imgui.ImFloat4(1.0,1.0,1.0,1.0)
 --local hexcolor = 0x00ff00ff
 local encoding = require ("encoding")
-encoding.default = "UTF8"
-u8 = encoding.cp1251
+encoding.default = "cp1251"
+u8 = encoding.UTF8
 local style = imgui.GetStyle()
 local colors = style.Colors
 local clr = imgui.Col
@@ -39,7 +39,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 					if sampIs3dTextDefined(IDTEXT) then
 						local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(IDTEXT)
 						local ll = getDistanceBetweenCoords3d(posX, posY, posZ, x2, y2, z2)
-						if text == 'Управления товарами.' and not isCentralMarket(posX, posY) then
+						if text == u8'Управления товарами.' and not isCentralMarket(posX, posY) then
 							if ll<=5.0 then
 								drawCircleIn3d(posX,posY,posZ-1.3,5,36,1.5,0xFF0000FF)
 							elseif ll>5.0 then
@@ -73,7 +73,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 			end
 			if checkbox444.v then
 				function samp.onServerMessage(color, text)
-					if text:find('Вы сняли лавку!') and not isCentralMarket(x2 , y2) or text:find('^%s*%(%( Через 30 секунд вы сможете сразу отправиться в больницу или подождать врачей %)%)%s*$') and not isCentralMarket(x2 , y2) then
+					if text:find(u8'Вы сняли лавку!') and not isCentralMarket(x2 , y2) or text:find(u8'^%s*%(%( Через 30 секунд вы сможете сразу отправиться в больницу или подождать врачей %)%)%s*$') and not isCentralMarket(x2 , y2) then
 						checkbox.v = true
 						checkbox222.v = true
 					end
@@ -87,7 +87,7 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 							if isPointOnScreen(posX, posY, posZ, nil) then
 								local pX, pY = convert3DCoordsToScreen(getCharCoordinates(PLAYER_PED))
 								local lX, lY = convert3DCoordsToScreen(posX, posY, posZ)
-								renderFontDrawText(font, 'Свободна', lX - 30, lY - 20, 0xFF16C910, 0x90000000)
+								renderFontDrawText(font, u8'Свободна', lX - 30, lY - 20, 0xFF16C910, 0x90000000)
 								renderDrawLine(pX, pY, lX, lY, 1, 0xFF52FF4D)
 								renderDrawPolygon(pX, pY, 10, 10, 10, 0, 0xFFFFFFFF)
 								renderDrawPolygon(lX, lY, 10, 10, 10, 0, 0xFFFFFFFF)
@@ -98,8 +98,8 @@ sampRegisterChatCommand('lavkah',function() active.v = not active.v end)
 			end
 			if roff.v then
 				function samp.onServerMessage(color, text)
-					if text:find('%[Подсказка%] {FFFFFF}Вы успешно арендовали лавку для продажи/покупки товара!') then
-						sampAddChatMessage('{FFFF00}[Lavka helper] {FFFFFF}Вы словили лавку, рендер был выключен', -1)
+					if text:find(u8'%[Подсказка%] {FFFFFF}Вы успешно арендовали лавку для продажи/покупки товара!') then
+						sampAddChatMessage(u8'{FFFF00}[Lavka helper] {FFFFFF}Вы словили лавку, рендер был выключен', -1)
 						rend.v= false
 					end
 				end
@@ -126,21 +126,21 @@ function autoupdate(json_url, prefix, url)
 				lua_thread.create(function(prefix)
 				  local dlstatus = require('moonloader').download_status
 				  local color = -1
-				  sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+				  sampAddChatMessage((prefix..u8'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..u8' на '..updateversion), color)
 				  wait(250)
 				  downloadUrlToFile(updatelink, thisScript().path,
 					function(id3, status1, p13, p23)
 					  if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
-						print(string.format('Загружено %d из %d.', p13, p23))
+						print(string.format(u8'Загружено %d из %d.', p13, p23))
 					  elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-						print('Загрузка обновления завершена.')
-						sampAddChatMessage((prefix..'Обновление завершено!'), color)
+						print(u8'Загрузка обновления завершена.')
+						sampAddChatMessage((prefix..u8'Обновление завершено!'), color)
 						goupdatestatus = true
 						lua_thread.create(function() wait(500) thisScript():reload() end)
 					  end
 					  if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
 						if goupdatestatus == nil then
-						  sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+						  sampAddChatMessage((prefix..u8'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
 						  update = false
 						end
 					  end
@@ -150,11 +150,11 @@ function autoupdate(json_url, prefix, url)
 				)
 			  else
 				update = false
-				print('v'..thisScript().version..': Обновление не требуется.')
+				print('v'..thisScript().version..u8': Обновление не требуется.')
 			  end
 			end
 		  else
-			print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
+			print('v'..thisScript().version..u8': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
 			update = false
 		  end
 		end
