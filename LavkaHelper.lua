@@ -1,5 +1,5 @@
 script_name("LavkaHelper")
-script_version("1.1")
+script_version("2.0")
 local imgui = require("imgui")
 local active = imgui.ImBool(false)
 local samp = require 'lib.samp.events'
